@@ -22,6 +22,19 @@
     </div>
 
     <div>
+      <label class="text-sm font-medium" for="category_id">Category</label>
+      <select id="category_id" name="category_id" class="mt-1 w-full rounded border px-3 py-2">
+        <option value="">N/A</option>
+        @foreach ($categories as $category)
+        <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id) == $category->id)>{{ $category->name }}</option>
+        @endforeach
+      </select>
+      @error('category_id')
+      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+      @enderror
+    </div>
+
+    <div>
       <label class="text-sm font-medium" for="content">Content</label>
       <textarea id="content" name="content" class="mt-1 w-full rounded border px-3 py-2">{{ old('content', $post->content) }}</textarea>
       @error('content')
