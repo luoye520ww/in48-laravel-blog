@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Category;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -26,7 +27,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.posts.create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -36,6 +41,7 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'max:255'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'content' => ['required'],
         ]);
 
@@ -43,6 +49,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->title = $data['title'];
+        $post->category_id = $data['category_id'];
         $post->content = $data['content'];
         $post->is_published = $data['is_published'];
         $post->save();
@@ -63,8 +70,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $categories = Category::orderBy('name')->get();
+
         return view('admin.posts.edit', [
             'post' => $post,
+            'categories' => $categories,
         ]);
     }
 
@@ -75,12 +85,14 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'max:255'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'content' => ['required'],
         ]);
 
         $data['is_published'] = $request->has('is_published');
 
         $post->title = $data['title'];
+        $post->category_id = $data['category_id'];
         $post->content = $data['content'];
         $post->is_published = $data['is_published'];
         $post->save();

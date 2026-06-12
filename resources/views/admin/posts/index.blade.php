@@ -14,9 +14,16 @@
     <div class="flex items-center justify-between border-b p-4 last:border-b-0">
       <div>
         <h2 class="font-semibold">{{ $post->title }}</h2>
-        <p class="text-sm text-gray-500">
-          {{ $post->is_published ? 'Published' : 'Draft' }}
-        </p>
+        <div class="flex gap-4 items-center">
+          <p class="text-sm text-gray-500">
+            {{ $post->is_published ? 'Published' : 'Draft' }}
+          </p>
+          @if ($post->category)
+          <h4 class="text-gray-900 bg-gray-200 px-1 py-0.5 rounded inline-block text-sm">
+            {{ $post->category->name }}
+          </h4>
+          @endif
+        </div>
       </div>
       <div class="flex items-center gap-3 text-sm">
         <a href="{{ route('admin.posts.edit', $post) }}" class="text-blue-600">Edit</a>
