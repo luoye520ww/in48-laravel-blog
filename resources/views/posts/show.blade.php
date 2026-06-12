@@ -9,7 +9,7 @@
     <article class="rounded border bg-white p-6">
         <h1 class="text-3xl font-bold">{{ $post->title }}</h1>
         <p class="text-gray-500 text-sm mt-2">{{ $post->created_at->format('Y-m-d H:i') }}</p>
-        <div class="mt-6 text-gray-800">{{ $post->content }}</div>
+        <div class="mt-6 text-gray-800">{!! nl2br($post->content) !!}</div>
     </article>
 </div>
 @endsection
