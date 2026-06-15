@@ -22,6 +22,7 @@
         <nav class="flex flex-col gap-6 w-60 bg-slate-700 p-6 rounded text-white">
             <a href="{{ route('admin.posts.index') }}">Posts</a>
             <a href="{{ route('admin.categories.index') }}">Categories</a>
+            <a href="{{ route('admin.tags.index') }}">Tags</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
         </nav>
         

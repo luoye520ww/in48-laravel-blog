@@ -20,7 +20,7 @@
     <div class="flex items-center justify-between border-b p-4 last:border-b-0">
       <div>
         <h2 class="font-semibold">{{ $user->name }}</h2>
-        <p class="text-sm text-gray-500">{{ $user->email }}</p>
+        <p class="mt-1 text-sm text-gray-800">{{ $user->email }}</p>
       </div>
 
       <div class="flex items-center gap-3 text-sm">

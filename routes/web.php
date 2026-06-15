@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\PostController as AdminPostControler;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', AdminPostControler::class);  # /admin/posts/*
     Route::resource('users', AdminUserController::class); # /admin/users/*
     Route::resource('categories', AdminCategoryController::class); # /admin/categories/*
+    Route::resource('tags', AdminTagController::class); # /admin/tags/*
 });

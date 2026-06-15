@@ -36,6 +36,14 @@
       @enderror
     </div>
 
+    <div>
+      <label class="text-sm font-medium" for="password_confirmation">Password (Confirmation)</label>
+      <input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 w-full rounded border px-3 py-2">
+      @error('password_confirmation')
+      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+      @enderror
+    </div>
+
     <button class="rounded bg-gray-900 px-4 py-2 text-white">Save</button>
   </form>
 </section>

@@ -38,14 +38,12 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:6'],
+            'password' => ['required', 'confirmed', 'min:6'],
         ]);
 
-        $user = new User();
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
-        $user->save();
+        $data['password'] = Hash::make($data['password']);
+
+        User::create($data);
 
         return redirect()->route('admin.users.index');
     }
@@ -81,7 +79,7 @@ class UserController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
-            'password' => ['nullable', 'min:6'],
+            'password' => ['nullable', 'confirmed', 'min:6'],
         ]);
 
         $user->name = $data['name'];

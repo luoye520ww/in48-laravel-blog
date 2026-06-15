@@ -10,8 +10,8 @@
   </div>
 
   <form method="POST" action="{{ route('admin.users.update', $user) }}" class="flex flex-col gap-4 rounded border bg-gray-100 p-5">
-    @method('PUT')
     @csrf
+    @method('PUT')
 
     <div>
       <label class="text-sm font-medium" for="name">Name</label>
@@ -34,6 +34,14 @@
       <input id="password" name="password" type="password" class="mt-1 w-full rounded border px-3 py-2">
       <p class="mt-1 text-sm text-gray-500">Leave blank to keep the current password.</p>
       @error('password')
+      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+      @enderror
+    </div>
+
+    <div>
+      <label class="text-sm font-medium" for="password_confirmation">Password (Confirmation)</label>
+      <input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 w-full rounded border px-3 py-2">
+      @error('password_confirmation')
       <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
       @enderror
     </div>
