@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\PostController as AdminPostControler;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\TagController as AdminTagController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +20,13 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('comments', [AdminCommentController::class, 'index'])->name('comments.index');
+    Route::patch('comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('comments.approve');
+    Route::patch('comments/{comment}/unapprove', [AdminCommentController::class, 'unapprove'])->name('comments.unapprove');
+    Route::delete('comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
+
     Route::resource('posts', AdminPostControler::class);  # /admin/posts/*
     Route::resource('users', AdminUserController::class); # /admin/users/*
     Route::resource('tags', AdminTagController::class); # /admin/tags/*
     Route::resource('categories', AdminCategoryController::class); # /admin/categories/*
-    Route::resource('tags', AdminTagController::class); # /admin/tags/*
 });
