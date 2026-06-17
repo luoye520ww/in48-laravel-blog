@@ -20,6 +20,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::redirect('/', '/admin/posts')->name('dashboard');
+
     Route::get('comments', [AdminCommentController::class, 'index'])->name('comments.index');
     Route::patch('comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('comments.approve');
     Route::patch('comments/{comment}/unapprove', [AdminCommentController::class, 'unapprove'])->name('comments.unapprove');
