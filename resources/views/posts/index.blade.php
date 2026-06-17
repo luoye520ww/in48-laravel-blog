@@ -41,7 +41,7 @@
                     @foreach ($categories as $category)
                     <a href="{{ route('posts.index', ['category' => $category->id, 'tag' => $selectedTag ?? null]) }}">
                         {{ $category->name }}
-                        ({{ count($category->posts) }})
+                        ({{ $category->posts_count }})
                     </a>
                     @endforeach
                 </div>
