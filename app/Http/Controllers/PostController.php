@@ -15,14 +15,15 @@ class PostController extends Controller
         $tags = Tag::orderBy('name')->get();
         $selectedCategory = $request->query('category');
         $selectedTag = $request->query('tag');
+        $selectedTags = array_values(array_filter((array) $request->query('tags', [])));
 
         $posts = Post::where('is_published', true)
                      ->when($selectedCategory, function ($query, $categoryId) {
                         $query->where('category_id', $categoryId);
                      })
-                     ->when($selectedTag, function ($query, $tagId) {
-                        $query->whereHas('tags', function ($tagQuery) use ($tagId) {
-                            $tagQuery->where('tags.id', $tagId);
+                     ->when($selectedTags, function ($query, $tagIds) {
+                        $query->whereHas('tags', function ($tagQuery) use ($tagIds) {
+                            $tagQuery->whereIn('tags.id', $tagIds);
                         });
                      })
                      ->latest()
@@ -34,6 +35,7 @@ class PostController extends Controller
             'tags' => $tags,
             'selectedCategory' => $selectedCategory,
             'selectedTag' => $selectedTag,
+            'selectedTags' => $selectedTags,
         ]);
     }
 

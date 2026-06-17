@@ -50,14 +50,19 @@
             {{-- Tags --}}
             <div class="mt-4 border-t border-slate-200 pt-4">
                 <h2 class="font-semibold">Tags</h2>
-                <div class="mt-3 flex flex-col gap-2 text-sm">
+                <form method="GET" action="{{ route('posts.index') }}" class="mt-3 flex flex-col gap-2 text-sm">
                     @foreach ($tags as $tag)
                     <a href="{{ route('posts.index', ['tag' => $tag->id, 'category' => $selectedCategory ?? null]) }}">
-                        {{ $tag->name }}
-                        ({{ count($tag->posts) }})
+                        <label class="flex items-center gap-2 text-gray-600">
+                            <input type="checkbox" name="tags[]" value="{{ $tag->id }}" @checked(in_array((string) $tag->id, array_map('strval', $selectedTags ?? [])))>
+                            {{ $tag->name }}
+                            ({{ count($tag->posts) }})
+                        </label>
                     </a>
                     @endforeach
-                </div>
+                    
+                    <button class="rounded bg-gray-900 px-3 py-2 text-white self-start">Apply</button>
+                </form>
             </div>
         </div>
     </aside>
