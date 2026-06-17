@@ -8,8 +8,6 @@ use App\Models\Post;
 class CommentController extends Controller
 {
     public function store(Request $request, Post $post) {
-        // dd($request->all());
-
         $data = $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
@@ -24,13 +22,12 @@ class CommentController extends Controller
         }
 
         unset($data['image']);
+        $data['is_approved'] = false;
 
         $post->comments()->create($data);
 
-        // $comment = new Comment;
-        // $comment->post_id = $post->id;
-        // $comment->name = $data['name'];
-
-        return redirect()->route('posts.show', $post);
+        return redirect()
+            ->route('posts.show', $post)
+            ->with('success', '留言已送出，等待审核');
     }
 }
