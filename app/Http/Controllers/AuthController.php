@@ -28,7 +28,7 @@ class AuthController extends Controller
             return redirect()->route('admin.posts.index');
         }
 
-        return back()->withError(['email' => 'Login incorrect'])->onlyInput('email');
+        return back()->withErrors(['email' => 'Login incorrect'])->onlyInput('email');
     }
 
     public function logout(Request $request) {
