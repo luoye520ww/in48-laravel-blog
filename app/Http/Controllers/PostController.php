@@ -54,6 +54,10 @@ class PostController extends Controller
     }
 
     public function show(Post $post) {
+        $post->load(['comments' => function ($query) {
+            $query->where('is_approved', true)->latest();
+        }]);
+
         return view('posts.show', [
             'post' => $post,
         ]);
